@@ -1,1 +1,18 @@
-<p>article-detail works!</p>
+<mat-card
+  fxLayout="column"
+  fxLayoutAlign="space-evenly center"
+  class="container"
+>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+    <div class="title">
+      {{ article.title }}
+    </div>
+    <div class="date">
+      {{ article.date | date : "yyyy-mm-dd" }}
+    </div>
+  </div>
+
+  <div>
+    {{ article.body }}
+  </div>
+</mat-card>

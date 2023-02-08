@@ -1,8 +1,7 @@
-<div>
-  <h2>Articles</h2>
+<div class="container">
   <ng-container *ngIf="(facade.articleList$ | async)?.length! > 0">
     <div *ngFor="let art of facade.articleList$ | async">
-      <app-article-detail></app-article-detail>
+      <app-article-detail [article]="art"></app-article-detail>
     </div>
   </ng-container>
 </div>

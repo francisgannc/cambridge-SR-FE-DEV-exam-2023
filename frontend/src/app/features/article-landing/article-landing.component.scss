@@ -3,8 +3,13 @@
   background-color: rgb(224, 224, 224);
   .card {
     padding: 30px;
-    height: 80%;
+    height: 90%;
     width: 50%;
+
+    .route-content {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
     .prof-menu {
       margin-left: 10px;

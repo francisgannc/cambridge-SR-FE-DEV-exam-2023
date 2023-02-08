@@ -7,6 +7,8 @@ import { AuthenticationFacade } from 'src/app/authentication/+state/authenticati
   styleUrls: ['./article-landing.component.scss'],
 })
 export class ArticleLandingComponent {
+  title = 'Articles'
+
   constructor(public authFacade: AuthenticationFacade) {}
 
   public logout(): void {
