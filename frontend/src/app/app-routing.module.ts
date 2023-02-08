@@ -17,6 +17,7 @@ const routes: Routes = [
       import('./features/features.module').then((m) => m.FeaturesModule),
     canActivate: [AuthenticationGuard],
   },
+  { path: '**', redirectTo: '/authentication/login' },
 ];
 
 @NgModule({
