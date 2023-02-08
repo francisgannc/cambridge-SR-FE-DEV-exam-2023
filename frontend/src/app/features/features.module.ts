@@ -5,6 +5,7 @@ import { FeaturesRoutingModule } from './features-routing.module';
 import { ArticleFormComponent } from './article-form/article-form.component';
 import { ArticleListViewComponent } from './article-list-view/article-list-view.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { AngularMaterialModule } from '../shared/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,6 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
     ArticleListViewComponent,
     ArticleDetailComponent,
   ],
-  imports: [CommonModule, FeaturesRoutingModule],
+  imports: [CommonModule, FeaturesRoutingModule, AngularMaterialModule],
 })
 export class FeaturesModule {}
