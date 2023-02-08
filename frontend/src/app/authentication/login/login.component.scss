@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+  background-color: rgb(224, 224, 224);
+  .card {
+    height: 40%;
+    width: 23%;
+    .form-field {
+      width: 90%;
+    }
+  }
+}
