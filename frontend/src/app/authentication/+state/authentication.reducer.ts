@@ -21,6 +21,13 @@ export const authInitialState: AuthState = {
 const authenticationReducer = createReducer(
   authInitialState,
 
+  on(AuthenticationActions.setLoginValues, (state, action) => ({
+    ...state,
+    loginLoading: action.loginLoading,
+    loginDto: action.loginDto,
+    isLoggedIn: action.isLoggedIn,
+    loginError: action.loginError,
+  })),
   on(AuthenticationActions.login, (state) => ({
     ...state,
     loginLoading: true,

@@ -1,6 +1,16 @@
 import { LoginDto } from './../../shared/models/auth.models';
 import { createAction, props } from '@ngrx/store';
 
+export const setLoginValues = createAction(
+  '[authentication] Set Login Values',
+  props<{
+    isLoggedIn: boolean | null;
+    loginDto: LoginDto | null;
+    loginLoading: boolean;
+    loginError: any;
+  }>()
+);
+
 export const login = createAction(
   '[authentication] Login',
   props<{ loginDto: LoginDto }>()

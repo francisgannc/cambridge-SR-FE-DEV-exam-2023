@@ -17,4 +17,20 @@ export class AuthenticationFacade {
   public login(loginDto: LoginDto): void {
     this.store.dispatch(AuthenticationActions.login({ loginDto }));
   }
+
+  public setLoginValues(
+    isLoggedIn: boolean | null,
+    loginDto: LoginDto | null,
+    loginLoading: boolean,
+    loginError: any
+  ): void {
+    this.store.dispatch(
+      AuthenticationActions.setLoginValues({
+        isLoggedIn,
+        loginDto,
+        loginLoading,
+        loginError,
+      })
+    );
+  }
 }

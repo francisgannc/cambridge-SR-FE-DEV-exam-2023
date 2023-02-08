@@ -5,6 +5,8 @@ import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import * as AuthenticationActions from './authentication.actions';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationFacade } from './authentication.facade';
+import { LOCSTOR_AUTH } from 'src/app/shared/constants';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -30,7 +32,12 @@ export class AuthenticationEffects {
     () =>
       this.action$.pipe(
         ofType(AuthenticationActions.loginSuccess),
-        tap((_action) => {
+        tap((action) => {
+          localStorage.setItem(LOCSTOR_AUTH.isLoggedIn, JSON.stringify(true));
+          localStorage.setItem(
+            LOCSTOR_AUTH.loginDto,
+            JSON.stringify(action.loginDto)
+          );
           this.router.navigate(['./features']);
         })
       ),
@@ -75,10 +82,32 @@ export class AuthenticationEffects {
     { dispatch: false }
   );
 
+  setLoginValues$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(AuthenticationActions.setLoginValues),
+        tap((action) => {
+          localStorage.setItem(
+            LOCSTOR_AUTH.isLoggedIn,
+            JSON.stringify(action.isLoggedIn)
+          );
+          localStorage.setItem(
+            LOCSTOR_AUTH.loginDto,
+            JSON.stringify(action.loginDto)
+          );
+          if (action.isLoggedIn) {
+            this.facade.login(action.loginDto!);
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private action$: Actions,
     private authRepoService: AuthenticationRepoService,
     private router: Router,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private facade: AuthenticationFacade
   ) {}
 }

@@ -1,5 +1,5 @@
-<div>
-  <!-- <mat-card class="card">
+<div fxLayout="row" fxLayoutAlign="center center" class="container">
+  <mat-card class="card">
     <div fxLayout="column" fxLayoutAlign="space-around end">
       <div fxLayout="row" fxLayoutAlign="end center">
         <span>Hello, {{ (authFacade.loginDto$ | async)?.username! }}</span>
@@ -8,17 +8,10 @@
         </button>
 
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>Logout</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
       </div>
     </div>
-    <h2>Articles</h2>
-    <div>
-      <app-article-detail></app-article-detail>
-    </div>
-  </mat-card> -->
-  <h2>Articles</h2>
-  <div>
-    <app-article-detail></app-article-detail>
-  </div>
+    <router-outlet></router-outlet>
+  </mat-card>
 </div>
