@@ -1,3 +1,6 @@
+import { ArticleEffects } from './+state/article.effects';
+import { ArticleFacade } from './+state/article.facade';
+import { ArticleRepoService } from './services/article.repo.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +12,9 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { AuthenticationRepoService } from '../authentication/services/authentication.repo.service';
 import { AuthenticationFacade } from '../authentication/+state/authentication.facade';
 import { ArticleLandingComponent } from './article-landing/article-landing.component';
+import * as fromArticle from './+state/article.reducer';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,18 @@ import { ArticleLandingComponent } from './article-landing/article-landing.compo
     ArticleDetailComponent,
     ArticleLandingComponent,
   ],
-  imports: [CommonModule, FeaturesRoutingModule, AngularMaterialModule],
-  providers: [AuthenticationRepoService, AuthenticationFacade],
+  imports: [
+    CommonModule,
+    FeaturesRoutingModule,
+    AngularMaterialModule,
+    StoreModule.forFeature(fromArticle.articleFeatureKey, fromArticle.reducer),
+    EffectsModule.forFeature([ArticleEffects]),
+  ],
+  providers: [
+    AuthenticationRepoService,
+    AuthenticationFacade,
+    ArticleRepoService,
+    ArticleFacade,
+  ],
 })
 export class FeaturesModule {}

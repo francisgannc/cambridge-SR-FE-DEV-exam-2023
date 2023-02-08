@@ -15,9 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private authFacade: AuthenticationFacade) {}
 
   ngOnInit(): void {
-    // fetch('http://localhost:3000/articles')
-    //   .then(res => res.json())
-    //   .then(res => console.log(res));
     if (
       localStorage.getItem(LOCSTOR_AUTH.isLoggedIn) !== null &&
       localStorage.getItem(LOCSTOR_AUTH.isLoggedIn) !== undefined
