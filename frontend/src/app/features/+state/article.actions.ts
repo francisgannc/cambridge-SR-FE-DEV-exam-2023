@@ -12,3 +12,13 @@ export const getArticleListFail = createAction(
   '[article] Fetch Failed',
   props<{ error: any }>()
 );
+
+export const searchArticles = createAction(
+  '[article] Search Article',
+  props<{ searchValue: string }>()
+);
+
+export const searchArticleSuccess = createAction(
+  '[article] Search Article Success',
+  props<{ articleList: ArticleEntity[] }>()
+);

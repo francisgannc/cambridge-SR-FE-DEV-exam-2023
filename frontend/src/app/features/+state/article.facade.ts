@@ -7,6 +7,9 @@ import * as ArticleActions from './article.actions';
 @Injectable()
 export class ArticleFacade {
   articleList$ = this.store.pipe(select(articleQuesry.getArticles));
+  filteredArticleList$ = this.store.pipe(
+    select(articleQuesry.getFilteredArticles)
+  );
   loading$ = this.store.pipe(select(articleQuesry.getArticlesLoading));
   loadErr$ = this.store.pipe(select(articleQuesry.getArticlesError));
 
@@ -14,5 +17,9 @@ export class ArticleFacade {
 
   public getArticleList(): void {
     this.store.dispatch(ArticleActions.getArticleList());
+  }
+
+  public searchArticles(searchValue: string): void {
+    this.store.dispatch(ArticleActions.searchArticles({ searchValue }));
   }
 }

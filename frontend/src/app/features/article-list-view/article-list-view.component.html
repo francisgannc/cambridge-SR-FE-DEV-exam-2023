@@ -1,6 +1,6 @@
 <div class="container">
-  <ng-container *ngIf="(facade.articleList$ | async)?.length! > 0">
-    <div *ngFor="let art of facade.articleList$ | async">
+  <ng-container *ngIf="(facade.filteredArticleList$ | async)?.length! > 0">
+    <div *ngFor="let art of facade.filteredArticleList$ | async">
       <app-article-detail [article]="art"></app-article-detail>
     </div>
   </ng-container>

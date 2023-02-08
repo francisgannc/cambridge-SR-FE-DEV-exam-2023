@@ -15,6 +15,7 @@ import { ArticleLandingComponent } from './article-landing/article-landing.compo
 import * as fromArticle from './+state/article.reducer';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import { EffectsModule } from '@ngrx/effects';
     CommonModule,
     FeaturesRoutingModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
     StoreModule.forFeature(fromArticle.articleFeatureKey, fromArticle.reducer),
     EffectsModule.forFeature([ArticleEffects]),
   ],

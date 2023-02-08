@@ -15,6 +15,11 @@ export const getArticles = createSelector(
   (state: ArticleState) => selectAll(state)
 );
 
+export const getFilteredArticles = createSelector(
+  getArticleState,
+  (state: ArticleState) => state.filteredArticles
+);
+
 export const getArticlesLoading = createSelector(
   getArticleState,
   (state: ArticleState) => state.loading
@@ -29,4 +34,5 @@ export const articleQuesry = {
   getArticles,
   getArticlesLoading,
   getArticlesError,
+  getFilteredArticles,
 };

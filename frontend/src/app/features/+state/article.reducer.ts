@@ -6,6 +6,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 export const articleFeatureKey = 'article';
 
 export interface ArticleState extends EntityState<ArticleEntity> {
+  filteredArticles?: ArticleEntity[];
   selectedId?: string;
   loading: boolean;
   loadErr: any;
@@ -21,6 +22,7 @@ export const articleAdapter: EntityAdapter<ArticleEntity> =
   });
 
 export const articleIntialState: ArticleState = articleAdapter.getInitialState({
+  filteredArticles: [],
   loading: false,
   loadErr: null,
   updating: false,
@@ -41,12 +43,17 @@ const authenticationReducer = createReducer(
     articleAdapter.setAll(articleList, {
       ...state,
       loading: false,
+      filteredArticles: [...articleList],
     })
   ),
   on(ArticleActions.getArticleListFail, (state, action) => ({
     ...state,
     loading: false,
     loadErr: action.error,
+  })),
+  on(ArticleActions.searchArticleSuccess, (state, action) => ({
+    ...state,
+    filteredArticles: action.articleList,
   }))
 );
 

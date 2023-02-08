@@ -12,7 +12,14 @@
         </mat-menu>
       </div>
     </div>
-    <h2>{{ title }}</h2>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h2>{{ title }}</h2>
+      <mat-form-field class="search-bar-width">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="searchControl" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
     <div class="route-content">
       <router-outlet></router-outlet>
     </div>
