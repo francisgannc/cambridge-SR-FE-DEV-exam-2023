@@ -16,4 +16,12 @@ export class ArticleRepoService {
       })
     );
   }
+
+  public getArticleById(id: string): Observable<ArticleEntity> {
+    return this.htpp.get<ArticleEntity>(`${this.articleBaseUrl}/${id}`).pipe(
+      map((value) => {
+        return value;
+      })
+    );
+  }
 }

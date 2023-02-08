@@ -51,6 +51,24 @@ export class ArticleEffects {
     )
   );
 
+  getArticleById$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ArticleActions.getArticleById),
+      mergeMap((action) => {
+        return this.articlRepoService.getArticleById(action.id).pipe(
+          map((article) => {
+            return ArticleActions.getArticleByIdSuccess({
+              article: article,
+            });
+          }),
+          catchError((error) => {
+            return of(ArticleActions.getArticleByIdFail({ error: error }));
+          })
+        );
+      })
+    )
+  );
+
   constructor(
     private action$: Actions,
     private articlRepoService: ArticleRepoService,

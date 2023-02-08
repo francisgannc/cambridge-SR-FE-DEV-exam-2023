@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
@@ -16,11 +17,21 @@ export class ArticleLandingComponent implements OnInit {
 
   constructor(
     public authFacade: AuthenticationFacade,
-    public facade: ArticleFacade
+    public facade: ArticleFacade,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.searchControlSubscribe();
+
+    this.activatedRoute.queryParams.subscribe((value) => {
+      if (value && value['title']) {
+        this.title = value['title'];
+      } else {
+        this.title = 'Articles';
+      }
+    });
   }
 
   public logout(): void {
@@ -40,5 +51,12 @@ export class ArticleLandingComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  public createNew(): void {
+    this.router.navigate([`./create`], {
+      relativeTo: this.activatedRoute,
+      queryParams: { title: 'Create Article' },
+    });
   }
 }

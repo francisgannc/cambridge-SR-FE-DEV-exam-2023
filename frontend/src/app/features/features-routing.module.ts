@@ -15,8 +15,14 @@ const routes: Routes = [
         path: 'article-list',
         component: ArticleListViewComponent,
       },
-      { path: 'create', component: ArticleFormComponent },
-      { path: ':id', component: ArticleFormComponent },
+      {
+        path: 'create',
+        component: ArticleFormComponent,
+      },
+      {
+        path: 'detail/:id',
+        component: ArticleFormComponent,
+      },
     ],
   },
 ];

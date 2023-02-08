@@ -16,6 +16,7 @@ import * as fromArticle from './+state/article.reducer';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthenticationFacade,
     ArticleRepoService,
     ArticleFacade,
+
+    MatDatepickerModule,
   ],
 })
 export class FeaturesModule {}

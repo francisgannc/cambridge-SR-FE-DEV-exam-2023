@@ -30,9 +30,15 @@ export const getArticlesError = createSelector(
   (state: ArticleState) => state.loadErr
 );
 
+export const getSelectedArticle = createSelector(
+  getArticleState,
+  (state: ArticleState) => state.selectedArticle
+);
+
 export const articleQuesry = {
   getArticles,
   getArticlesLoading,
   getArticlesError,
   getFilteredArticles,
+  getSelectedArticle,
 };

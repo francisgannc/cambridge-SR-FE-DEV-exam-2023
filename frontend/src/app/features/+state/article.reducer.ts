@@ -14,6 +14,7 @@ export interface ArticleState extends EntityState<ArticleEntity> {
   updateErr: any;
   creating: boolean;
   createErr: any;
+  selectedArticle?: ArticleEntity | null;
 }
 
 export const articleAdapter: EntityAdapter<ArticleEntity> =
@@ -29,6 +30,7 @@ export const articleIntialState: ArticleState = articleAdapter.getInitialState({
   updateErr: null,
   creating: false,
   createErr: null,
+  selectedArticle: null,
 });
 
 const authenticationReducer = createReducer(
@@ -54,6 +56,27 @@ const authenticationReducer = createReducer(
   on(ArticleActions.searchArticleSuccess, (state, action) => ({
     ...state,
     filteredArticles: action.articleList,
+  })),
+  on(ArticleActions.selectArticleById, (state, action) => ({
+    ...state,
+    selectedId: action.id,
+  })),
+
+  on(ArticleActions.getArticleById, (state, action) => ({
+    ...state,
+    selectedId: action.id,
+    loading: true,
+    loadErr: null,
+  })),
+  on(ArticleActions.getArticleByIdSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    selectedArticle: action.article,
+  })),
+  on(ArticleActions.getArticleByIdFail, (state, action) => ({
+    ...state,
+    loading: false,
+    loadErr: action.error,
   }))
 );
 

@@ -12,6 +12,9 @@ export class ArticleFacade {
   );
   loading$ = this.store.pipe(select(articleQuesry.getArticlesLoading));
   loadErr$ = this.store.pipe(select(articleQuesry.getArticlesError));
+  getSelectedArticle$ = this.store.pipe(
+    select(articleQuesry.getSelectedArticle)
+  );
 
   constructor(private store: Store<ArticleState>) {}
 
@@ -21,5 +24,13 @@ export class ArticleFacade {
 
   public searchArticles(searchValue: string): void {
     this.store.dispatch(ArticleActions.searchArticles({ searchValue }));
+  }
+
+  public selectArticleById(id: string): void {
+    this.store.dispatch(ArticleActions.selectArticleById({ id }));
+  }
+
+  public getArticleById(id: string): void {
+    this.store.dispatch(ArticleActions.getArticleById({ id }));
   }
 }
