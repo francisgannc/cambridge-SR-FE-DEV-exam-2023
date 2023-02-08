@@ -10,6 +10,6 @@ export class ArticleLandingComponent {
   constructor(public authFacade: AuthenticationFacade) {}
 
   public logout(): void {
-    
+    this.authFacade.logout();
   }
 }

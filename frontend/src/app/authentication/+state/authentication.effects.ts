@@ -103,6 +103,19 @@ export class AuthenticationEffects {
     { dispatch: false }
   );
 
+  logout$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(AuthenticationActions.logout),
+        tap(() => {
+          localStorage.setItem(LOCSTOR_AUTH.isLoggedIn, JSON.stringify(false));
+          localStorage.setItem(LOCSTOR_AUTH.loginDto, JSON.stringify(null));
+          this.router.navigate(['']);
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private action$: Actions,
     private authRepoService: AuthenticationRepoService,

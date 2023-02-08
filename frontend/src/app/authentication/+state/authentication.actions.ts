@@ -26,9 +26,4 @@ export const loginFail = createAction(
   props<{ error: any }>()
 );
 
-export const logoutSuccess = createAction('[authentication] Logout Success');
-
-export const logoutFail = createAction(
-  '[authentication] Logout Failed',
-  props<{ error: any }>()
-);
+export const logout = createAction('[authentication] Logout');

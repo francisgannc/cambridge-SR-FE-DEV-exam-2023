@@ -33,4 +33,8 @@ export class AuthenticationFacade {
       })
     );
   }
+
+  public logout(): void {
+    this.store.dispatch(AuthenticationActions.logout());
+  }
 }

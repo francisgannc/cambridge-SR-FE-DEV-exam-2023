@@ -46,6 +46,13 @@ const authenticationReducer = createReducer(
     loginDto: null,
     isLoggedIn: false,
     loginError: action.error,
+  })),
+  on(AuthenticationActions.logout, (state, action) => ({
+    ...state,
+    loginLoading: false,
+    loginDto: null,
+    isLoggedIn: false,
+    loginError: null,
   }))
 );
 
