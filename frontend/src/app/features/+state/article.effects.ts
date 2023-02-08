@@ -39,7 +39,7 @@ export class ArticleEffects {
           (article) =>
             article.body.toLocaleLowerCase().includes(searchValue) ||
             article.title.toLocaleLowerCase().includes(searchValue) ||
-            article.userId.toLocaleLowerCase().includes(searchValue)
+            article?.userId?.toLocaleLowerCase().includes(searchValue)
         );
 
         return of(
@@ -67,6 +67,110 @@ export class ArticleEffects {
         );
       })
     )
+  );
+
+  addArticle$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ArticleActions.addArticle),
+      mergeMap((action) => {
+        return this.articlRepoService.addArticle(action.article).pipe(
+          map((article: ArticleEntity) => {
+            const result: ArticleEntity = {
+              ...action.article,
+              id: article.id,
+            };
+
+            return ArticleActions.addArticleSuccess({
+              article: result,
+            });
+          }),
+          catchError((error) => {
+            return of(ArticleActions.addArticleFail({ error: error }));
+          })
+        );
+      })
+    )
+  );
+
+  addArticleSuccess$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(ArticleActions.addArticleSuccess),
+        tap(() => {
+          this.snackBar.open('Succefully Added', '', {
+            duration: 2000,
+          });
+
+          this.router.navigate(['./features'], {
+            queryParams: {
+              title: 'Articles',
+            },
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  addArticleFail$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(ArticleActions.addArticleFail),
+        tap(() => {
+          this.snackBar.open('Something went wrong', '', {
+            duration: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateArticle$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ArticleActions.updateArticle),
+      mergeMap((action) => {
+        return this.articlRepoService.updateArticle(action.article).pipe(
+          map((article) => {
+            return ArticleActions.updateArticleSuccess({
+              article: { id: action.article.id!, changes: action.article },
+            });
+          }),
+          catchError((error) => {
+            return of(ArticleActions.updateArticleFail({ error: error }));
+          })
+        );
+      })
+    )
+  );
+
+  updateArticleSuccess$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(ArticleActions.updateArticleSuccess),
+        tap(() => {
+          this.snackBar.open('Succefully Updated', '', {
+            duration: 2000,
+          });
+          this.router.navigate(['./features'], {
+            queryParams: {
+              title: 'Articles',
+            },
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateArticleFail$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(ArticleActions.updateArticleFail),
+        tap(() => {
+          this.snackBar.open('Something went wrong', '', {
+            duration: 3000,
+          });
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(

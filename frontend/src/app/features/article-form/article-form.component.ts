@@ -1,3 +1,4 @@
+import { AuthenticationFacade } from 'src/app/authentication/+state/authentication.facade';
 import { ArticleEntity } from 'src/app/shared/models/article.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleFacade } from './../+state/article.facade';
@@ -15,6 +16,7 @@ import {
 } from '@angular/material/core';
 import 'moment/locale/ja';
 import 'moment/locale/fr';
+import { DatePipe } from '@angular/common';
 
 export const MY_FORMATS = {
   parse: {
@@ -50,16 +52,24 @@ export class ArticleFormComponent implements OnInit {
 
   articleId = '';
   article?: ArticleEntity;
+  userId = '';
 
   constructor(
     public facade: ArticleFacade,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authFacade: AuthenticationFacade,
+    public datepipe: DatePipe
   ) {}
 
   ngOnInit(): void {
     this.idParamCheck();
+    this.authFacade.loginDto$.subscribe((value) => {
+      if (value) {
+        this.userId = value.id!;
+      }
+    });
   }
 
   private idParamCheck(): void {
@@ -69,6 +79,13 @@ export class ArticleFormComponent implements OnInit {
         ?.toString()!;
       this.facade.getArticleById(this.articleId);
       this.selectedArticleSubscribe();
+    } else {
+      this.formGroup
+        .get('date')
+        ?.setValue(
+          this.datepipe.transform(new Date(), 'yyyy-MM-dd')?.toString()!
+        );
+      this.formGroup.get('date')?.disable();
     }
   }
 
@@ -79,17 +96,14 @@ export class ArticleFormComponent implements OnInit {
         this.formGroup.get('title')?.setValue(this.article.title);
         this.formGroup
           .get('date')
-          ?.setValue(this.convertDate(this.article.date).toISOString());
+          ?.setValue(
+            this.datepipe
+              .transform(this.article.date, 'yyyy-MM-dd')
+              ?.toString()!
+          );
         this.formGroup.get('body')?.setValue(this.article.body);
       }
     });
-  }
-
-  private convertDate(date: number): Date {
-    const _date = new Date(date);
-    return new Date(
-      Date.UTC(_date.getFullYear(), _date.getMonth(), _date.getDate())
-    );
   }
 
   public cancel(): void {
@@ -100,5 +114,26 @@ export class ArticleFormComponent implements OnInit {
         title: 'Articles',
       },
     });
+  }
+
+  public save(): void {
+    let article: ArticleEntity = {
+      title: this.formGroup.get('title')?.value!,
+      date: this.datepipe
+        .transform(this.formGroup.get('date')?.value, 'yyyy-MM-dd')
+        ?.toString()!,
+      body: this.formGroup.get('body')?.value!,
+      userId: this.userId,
+    };
+
+    if (this.articleId) {
+      article = {
+        ...article,
+        id: this.article?.id,
+      };
+      this.facade.updateExistingArticle(article);
+    } else {
+      this.facade.addNewArticle(article);
+    }
   }
 }

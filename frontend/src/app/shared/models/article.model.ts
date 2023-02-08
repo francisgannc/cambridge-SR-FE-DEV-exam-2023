@@ -1,7 +1,7 @@
 export interface ArticleEntity {
   id?: string;
-  userId: string;
+  userId?: string;
   title: string;
   body: string;
-  date: number;
+  date: string;
 }

@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { ArticleEntity } from 'src/app/shared/models/article.model';
 
@@ -40,5 +41,35 @@ export const getArticleByIdSuccess = createAction(
 
 export const getArticleByIdFail = createAction(
   '[article] Fetch By ID Failed',
+  props<{ error: any }>()
+);
+
+export const addArticle = createAction(
+  '[article] Add',
+  props<{ article: ArticleEntity }>()
+);
+
+export const addArticleSuccess = createAction(
+  '[article] Add Success',
+  props<{ article: ArticleEntity }>()
+);
+
+export const addArticleFail = createAction(
+  '[article] Add Failed',
+  props<{ error: any }>()
+);
+
+export const updateArticle = createAction(
+  '[article] Update',
+  props<{ article: ArticleEntity }>()
+);
+
+export const updateArticleSuccess = createAction(
+  '[article] Update Success',
+  props<{ article: Update<ArticleEntity> }>()
+);
+
+export const updateArticleFail = createAction(
+  '[article] Update Failed',
   props<{ error: any }>()
 );

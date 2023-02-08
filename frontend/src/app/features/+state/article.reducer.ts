@@ -77,6 +77,40 @@ const authenticationReducer = createReducer(
     ...state,
     loading: false,
     loadErr: action.error,
+  })),
+
+  on(ArticleActions.addArticle, (state) => ({
+    ...state,
+    creating: true,
+    createErr: null,
+  })),
+  on(ArticleActions.addArticleSuccess, (state, { article }) =>
+    articleAdapter.addOne(article, {
+      ...state,
+      creating: false,
+    })
+  ),
+  on(ArticleActions.addArticleFail, (state, action) => ({
+    ...state,
+    creating: false,
+    createErr: action.error,
+  })),
+
+  on(ArticleActions.updateArticle, (state) => ({
+    ...state,
+    updating: true,
+    updateErr: null,
+  })),
+  on(ArticleActions.updateArticleSuccess, (state, { article }) =>
+    articleAdapter.updateOne(article, {
+      ...state,
+      updating: false,
+    })
+  ),
+  on(ArticleActions.updateArticleFail, (state, action) => ({
+    ...state,
+    updating: false,
+    updateErr: action.error,
   }))
 );
 

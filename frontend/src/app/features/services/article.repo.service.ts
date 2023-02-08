@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
 export class ArticleRepoService {
   private articleBaseUrl = `http://localhost:3000/articles`;
 
-  constructor(private htpp: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   public getArticleList(): Observable<ArticleEntity[]> {
-    return this.htpp.get<ArticleEntity[]>(this.articleBaseUrl).pipe(
+    return this.http.get<ArticleEntity[]>(this.articleBaseUrl).pipe(
       map((value) => {
         return value;
       })
@@ -18,10 +18,30 @@ export class ArticleRepoService {
   }
 
   public getArticleById(id: string): Observable<ArticleEntity> {
-    return this.htpp.get<ArticleEntity>(`${this.articleBaseUrl}/${id}`).pipe(
+    return this.http.get<ArticleEntity>(`${this.articleBaseUrl}/${id}`).pipe(
       map((value) => {
         return value;
       })
     );
+  }
+
+  public addArticle(article: ArticleEntity): Observable<ArticleEntity> {
+    return this.http
+      .post<ArticleEntity>(`${this.articleBaseUrl}`, article)
+      .pipe(
+        map((value) => {
+          return value;
+        })
+      );
+  }
+
+  public updateArticle(article: ArticleEntity): Observable<any> {
+    return this.http
+      .put<any>(`${this.articleBaseUrl}/${article.id}`, article)
+      .pipe(
+        map((value) => {
+          return value;
+        })
+      );
   }
 }
