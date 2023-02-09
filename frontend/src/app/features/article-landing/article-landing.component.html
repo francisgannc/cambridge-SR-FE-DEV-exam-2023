@@ -1,0 +1,40 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="container">
+  <mat-card class="card">
+    <div fxLayout="column" fxLayoutAlign="space-around end">
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <span>Hello, {{ (authFacade.loginDto$ | async)?.username! }}</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="prof-menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h2>
+        {{ title }}
+        <span *ngIf="title === 'Edit Article'">: {{
+          (facade.getSelectedArticle$ | async)?.id!
+        }}</span>
+      </h2>
+      <mat-form-field class="search-bar-width" *ngIf="title === 'Articles'">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="searchControl" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="createNew()"
+        *ngIf="title === 'Articles'"
+      >
+        Add new
+      </button>
+    </div>
+    <div class="route-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-card>
+</div>

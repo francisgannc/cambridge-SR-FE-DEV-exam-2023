@@ -1,0 +1,39 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  class="container"
+  [formGroup]="formGroup"
+>
+  <mat-card class="card" fxLayout="column" fxLayoutAlign="space-around center">
+    <h2>Login</h2>
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Username" formControlName="username" />
+      <mat-error *ngIf="formGroup.get('username')?.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Email" formControlName="email" />
+      <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="
+          !formGroup.get('email')?.hasError('required') &&
+          formGroup.get('email')?.hasError('email')
+        "
+      >
+        Email is <strong>invalid</strong>
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="login()"
+      [disabled]="formGroup.invalid"
+    >
+      LOGIN
+    </button>
+  </mat-card>
+</div>

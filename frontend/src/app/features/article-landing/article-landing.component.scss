@@ -1,0 +1,27 @@
+.container {
+  height: 100%;
+  background-color: rgb(224, 224, 224);
+  .card {
+    padding: 30px;
+    height: 90%;
+    width: 50%;
+
+    .route-content {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .prof-menu {
+      margin-left: 10px;
+    }
+
+    .form-field {
+      width: 90%;
+    }
+
+    .search-bar-width {
+      width: 70%;
+    }
+  }
+}

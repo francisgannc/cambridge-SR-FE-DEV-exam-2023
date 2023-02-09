@@ -1,0 +1,19 @@
+<mat-card
+  fxLayout="column"
+  fxLayoutAlign="space-evenly center"
+  class="container"
+  (click)="gotoArticle()"
+>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+    <div class="title">
+      {{ article.title }}
+    </div>
+    <div class="date">
+      {{ article.date | date : "yyyy-MM-dd" }}
+    </div>
+  </div>
+
+  <div>
+    {{ article.body }}
+  </div>
+</mat-card>
